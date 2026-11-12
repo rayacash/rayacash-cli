@@ -1,0 +1,3 @@
+# LF en todos los sistemas: el shebang de src/cli.ts y los tests que comparan textos lo necesitan
+# también en Windows.
+* text=auto eol=lf

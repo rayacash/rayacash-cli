@@ -1,0 +1,57 @@
+{
+  "name": "rayacash-cli",
+  "version": "1.0.0",
+  "description": "CLI de Raya Cash: escuchá en tu máquina los webhooks de tu sandbox (si tu cuenta lo tiene) y reenvialos a tu servidor local.",
+  "keywords": [
+    "raya",
+    "raya cash",
+    "webhooks",
+    "sandbox",
+    "cli",
+    "pagos",
+    "transferencias",
+    "argentina"
+  ],
+  "homepage": "https://github.com/rayacash/rayacash-cli#readme",
+  "bugs": {
+    "url": "https://github.com/rayacash/rayacash-cli/issues",
+    "email": "soporte@raya.cash"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rayacash/rayacash-cli.git"
+  },
+  "license": "MIT",
+  "author": "Raya Cash <soporte@raya.cash>",
+  "type": "module",
+  "bin": {
+    "rayacash": "dist/cli.js",
+    "rayacash-cli": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "compile": "node scripts/build.mjs",
+    "test": "node scripts/test.mjs",
+    "test:coverage": "node scripts/test.mjs --coverage",
+    "lint": "biome ci .",
+    "format": "biome check --write .",
+    "typecheck": "tsc -p tsconfig.json",
+    "check:package": "node scripts/build.mjs && publint --strict && node scripts/check-package.mjs",
+    "version": "node scripts/sync-version.mjs && node scripts/build.mjs && git add src/version.ts dist"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.6.4",
+    "@types/node": "22.20.5",
+    "publint": "0.3.25",
+    "typescript": "5.9.2"
+  }
+}

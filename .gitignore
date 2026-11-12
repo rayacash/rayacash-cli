@@ -1,0 +1,40 @@
+# Dependencias
+node_modules/
+
+# dist/ SÍ se commitea (lo genera npm run compile; CI comprueba que esté al día): así
+# `npm install -g github:rayacash/rayacash-cli` no compila nada. Al preparar una dependencia de
+# git, npm no instala sus devDependencies si la instalación es global, y un script prepare o
+# build terminaría en una instalación rota.
+
+# Output de npm pack
+*.tgz
+
+# Guía local del paquete: no se commitea ni se publica
+SDK.md
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Cobertura
+coverage
+*.lcov
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Caches de npm y de linters
+.npm
+.eslintcache
+
+# Variables de entorno
+.env
+.env.*
+!.env.example
+
+# Sistema operativo
+.DS_Store

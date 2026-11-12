@@ -1,0 +1,12 @@
+{
+  // El build: src/*.ts a dist/*.js (ESM, sin tipos). Los imports con .ts salen con .js.
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "allowJs": false,
+    "rootDir": "src",
+    "outDir": "dist",
+    "declaration": false
+  },
+  "include": ["src"]
+}
