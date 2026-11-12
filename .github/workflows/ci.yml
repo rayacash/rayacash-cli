@@ -89,4 +89,5 @@ jobs:
         run: |
           call rayacash.cmd --version
           call rayacash-cli.cmd --help
-      - run: npx --yes "github:${{ github.repository }}#${{ github.sha }}" --version
+      # Sin `npx github:…`: npm 10 no puede correrlo con un paquete de git («GitFetcher requires
+      # an Arborist constructor to pack a tarball») y el README no lo ofrece. npx se usa desde npm.

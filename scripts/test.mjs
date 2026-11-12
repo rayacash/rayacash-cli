@@ -31,7 +31,12 @@ const args = [];
 if (!process.features.typescript) {
   args.push("--experimental-strip-types", "--disable-warning=ExperimentalWarning");
 }
-args.push("--import", GUARD, "--test", "--test-reporter=spec");
+args.push("--import", GUARD, "--test", "--test-reporter=spec", "--test-reporter-destination=stdout");
+// En GitHub Actions, además, una anotación por cada test que falla (scripts/gha-reporter.mjs).
+if (process.env.GITHUB_ACTIONS === "true") {
+  const reporter = pathToFileURL(path.join(ROOT, "scripts", "gha-reporter.mjs")).href;
+  args.push(`--test-reporter=${reporter}`, "--test-reporter-destination=stdout");
+}
 if (coverage) {
   // cli.ts queda afuera: es el shebang, la guarda de versión y el import de main.ts (lo prueban
   // los hijos de cli.test.ts). El modo raw de una terminal real y SIGBREAK no se cubren en CI.
