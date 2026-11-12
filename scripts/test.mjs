@@ -31,7 +31,13 @@ const args = [];
 if (!process.features.typescript) {
   args.push("--experimental-strip-types", "--disable-warning=ExperimentalWarning");
 }
-args.push("--import", GUARD, "--test", "--test-reporter=spec", "--test-reporter-destination=stdout");
+args.push(
+  "--import",
+  GUARD,
+  "--test",
+  "--test-reporter=spec",
+  "--test-reporter-destination=stdout",
+);
 // En GitHub Actions, además, una anotación por cada test que falla (scripts/gha-reporter.mjs).
 if (process.env.GITHUB_ACTIONS === "true") {
   const reporter = pathToFileURL(path.join(ROOT, "scripts", "gha-reporter.mjs")).href;
