@@ -379,8 +379,11 @@ describe("listen", () => {
 });
 
 describe("npx y --api-key: npm anota el comando en sus logs", () => {
+  // La ruta esperada sale de npmLogsDir con la plataforma de esta máquina, como la arma main (en
+  // Windows, con barras invertidas). Sus valores exactos por plataforma los fijan los tests de
+  // npmLogsDir, más abajo.
   const npx = { npm_lifecycle_event: "npx", npm_config_cache: "/home/ana/.npm" };
-  const LOGS = "/home/ana/.npm/_logs";
+  const LOGS = npmLogsDir(npx, process.platform) ?? "";
 
   test("listen: además del aviso de la lista de procesos, el de los logs de npm", async () => {
     const script = scripted([pg()]);
@@ -402,9 +405,11 @@ describe("npx y --api-key: npm anota el comando en sus logs", () => {
     assert.equal(await main(["listen", "--api-key", liveKey()], fake.io), 2);
     const message = MSG.keyLive("La clave de --api-key", LOGS);
     assert.equal(fake.stderr.lines().at(-1), message);
-    assert.match(
+    assert.ok(
+      message.endsWith(
+        `No la usamos, pero npm la anotó en sus logs (${LOGS}): borrá esos logs y rotá la clave.`,
+      ),
       message,
-      /No la usamos, pero npm la anotó en sus logs \(\/home\/ana\/\.npm\/_logs\): borrá esos logs y rotá la clave\.$/,
     );
     assert.equal(fake.stderr.text.includes(liveKey()), false);
     const login = fakeIo({ env: npx });
